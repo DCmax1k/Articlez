@@ -1,0 +1,147 @@
+header ul {
+  width: 600px;
+}
+
+header ul li {
+  cursor: pointer;
+  font-size: 25px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow 0.3s ease-in-out;
+  padding: 5px;
+}
+header ul li:hover {
+  box-shadow: 0 2px 0px #c24d2c, 0 -2px 0px #c24d2c;
+}
+
+.body-cont {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#title {
+  width: 70%;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+#title > h2 {
+  font-size: 45px;
+  font-weight: normal;
+}
+#title > h2 > span {
+  font-size: 25px;
+  color: #6b6b6b;
+}
+
+.article {
+  width: 70%;
+  margin-bottom: 20px;
+  padding: 15px;
+  position: relative;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trash-icon {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  border: 1px solid black;
+  padding: 3px;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.trash-icon:hover {
+  background-color: rgba(0, 0, 0, 0.596);
+  color: rgb(255, 0, 0);
+}
+
+.article.shortenArticle > p {
+  height: 300px;
+  overflow: hidden;
+}
+
+.blur {
+  visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  bottom: 40px;
+  left: 0;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 1));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blur p {
+  background-color: #3e4a61;
+  padding: 5px;
+  color: #d9dad7;
+  border-radius: 5px;
+  cursor: pointer;
+  transform: translateY(50%);
+}
+
+.article.shortenArticle .blur {
+  visibility: visible;
+}
+
+.article-heading {
+  width: 95%;
+  position: relative;
+}
+
+.article-heading > h1 {
+  font-weight: normal;
+  word-wrap: break-word;
+}
+
+.article-heading > h4 {
+  position: absolute;
+  right: 0;
+  top: -8px;
+  color: #909090;
+}
+
+.article > hr {
+  height: 10px;
+  background-color: #3e4a61;
+  width: 100%;
+  border: none;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+.article > p {
+  width: 98%;
+  word-wrap: break-word;
+}
+
+.author {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.author > p {
+  position: absolute;
+  right: 25px;
+  bottom: 0;
+  color: #484848;
+  font-size: 19px;
+  transform: translate(10px, 10px);
+}

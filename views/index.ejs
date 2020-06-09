@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Articlez</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+      integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link rel="stylesheet" href="/assets/index.css" />
+  </head>
+  <body>
+    <div id="background">
+      <img src="/images/index.svg" alt="Background" />
+    </div>
+    <header class="dark-light-background">
+      <div id="logo">
+        <h1 style="transform: translateY(-5%);">
+          <a class="light" href="/">Articlez</a>
+        </h1>
+      </div>
+      <ul style="width: 250px;">
+        <li><a class="orange" href="/signup">Sign Up</a></li>
+        <li><a class="light" href="/login">Login</a></li>
+      </ul>
+    </header>
+    <div class="body-cont">
+      <div id="title" class="row">
+        <h2>Home <span>&nbsp; - all published articles</span></h2>
+      </div>
+
+      <!-- Start of articles -->
+      <% if (data.articles.length === 0) { %>
+      <div class="no-articles">
+        <h1>
+          <i class="fas fa-robot"></i> &nbsp; There seems to be no articles at
+          the moment
+        </h1>
+      </div>
+      <% } %> <% data.articles.reverse().forEach((article, i) => { %>
+      <div id="article<%= i %>" class="article">
+        <div class="blur">
+          <p id="readMoreBtn<%= i %>" class="read-more">Read More</p>
+        </div>
+        <div class="article-heading">
+          <h1><%= article.title %></h1>
+          <h4><%= article.date.toLocaleDateString() %></h4>
+        </div>
+        <hr />
+        <p>
+          <%= article.text %>
+        </p>
+        <div class="author">
+          <p>
+            by <%= article.author.firstname %> <%= article.author.lastname %> -
+            @<%= article.author.username %> <% if (article.author.rank ===
+            'owner') {%> &nbsp; <i class="fas fa-key orange"></i> <% } else if
+            (article.author.rank === 'admin') { %> &nbsp;
+            <i class="fas fa-certificate dark-light"></i> <% } %>
+          </p>
+        </div>
+      </div>
+      <% }) %>
+      <!-- End of Articles -->
+    </div>
+    <script>
+      // Loops through all articles - All pages
+      const articles = document.querySelectorAll('.article');
+      articles.forEach((article, i) => {
+        if (article.offsetHeight > 500) {
+          article.classList.add('shortenArticle');
+        }
+      });
+      const readMoreBtns = document.querySelectorAll('.read-more');
+      readMoreBtns.forEach((btn) => {
+        let id = btn.id.slice(btn.id.length - 1);
+        btn.addEventListener('click', () => {
+          document
+            .getElementById(`article${id}`)
+            .classList.remove('shortenArticle');
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= data.user.firstname %>'s Home Page</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+      integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link rel="stylesheet" href="/assets/home.css" />
+  </head>
+  <body>
+    <div id="background">
+      <img src="/images/index.svg" alt="Background" />
+    </div>
+    <header class="dark-light-background">
+      <div id="logo">
+        <h1 style="transform: translateY(-5%);">
+          <a
+            class="light"
+            href="/home/<%= data.user.username %>?k=<%= data.user._id %>"
+            >Articlez</a
+          >
+        </h1>
+      </div>
+      <ul style="width: 450px;">
+        <li>
+          <a
+            style="box-shadow: 0 2px 0px white, 0 -2px 0px white;"
+            class="light"
+            href="/home/<%= data.user.username %>?k=<%= data.user._id %>"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a
+            class="light"
+            href="/home/myarticles/<%= data.user.username %>?k=<%= data.user._id %>"
+            >My Articles</a
+          >
+        </li>
+        <li id="logoutBtn" class="orange">Log out</li>
+      </ul>
+    </header>
+    <div class="body-cont">
+      <div id="title" class="row">
+        <h2>Home <span>&nbsp; - all published articles</span></h2>
+      </div>
+
+      <!-- Start of articles -->
+      <% if (data.articles.length === 0) { %>
+      <div class="no-articles">
+        <h1>
+          <i class="fas fa-robot"></i> &nbsp; There seems to be no articles at
+          the moment
+        </h1>
+      </div>
+      <% } %> <% data.articles.reverse().forEach((article, i) => { %>
+      <div id="article<%= i %>" class="article">
+        <% if (data.user.rank === 'owner' || data.user.rank === 'admin' ||
+        JSON.stringify(article.author._id) === JSON.stringify(data.user._id)) {
+        %>
+        <i id="trash<%= article._id %>" class="fas fa-trash-alt trash-icon"></i>
+        <% } %>
+
+        <div class="blur">
+          <p id="readMoreBtn<%= i %>" class="read-more">Read More</p>
+        </div>
+        <div class="article-heading">
+          <h1><%= article.title %></h1>
+          <h4><%= article.date.toLocaleDateString() %></h4>
+        </div>
+        <hr />
+        <p>
+          <%= article.text %>
+        </p>
+        <div class="author">
+          <p>
+            by <%= article.author.firstname %> <%= article.author.lastname %> -
+            @<%= article.author.username %> <% if (article.author.rank ===
+            'owner') {%> &nbsp; <i class="fas fa-key orange"></i> <% } else if
+            (article.author.rank === 'admin') { %> &nbsp;
+            <i class="fas fa-certificate dark-light"></i> <% } %>
+          </p>
+        </div>
+      </div>
+      <% }) %>
+      <!-- End of Articles -->
+    </div>
+    <!-- Start of hidden forms -->
+    <form
+      action="/logout?k=<%= data.user._id %>"
+      method="POST"
+      id="logoutForm"
+    ></form>
+    <form
+      method="POST"
+      action="/home/deletearticlehome?k=<%= data.user._id %>&from=home"
+      id="deleteArticleForm"
+      class="display-none"
+    >
+      <input name="articleId" id="articleIdInput" type="text" />
+    </form>
+    <!-- Script Section -->
+    <script>
+      const logoutBtn = document.getElementById('logoutBtn');
+      const logoutForm = document.getElementById('logoutForm');
+      logoutBtn.addEventListener('click', () => {
+        logoutForm.submit();
+      });
+      // Loops through all articles - All pages
+      const articles = document.querySelectorAll('.article');
+      articles.forEach((article, i) => {
+        if (article.offsetHeight > 500) {
+          article.classList.add('shortenArticle');
+        }
+      });
+      const readMoreBtns = document.querySelectorAll('.read-more');
+      readMoreBtns.forEach((btn) => {
+        let id = btn.id.slice(btn.id.length - 1);
+        btn.addEventListener('click', () => {
+          document
+            .getElementById(`article${id}`)
+            .classList.remove('shortenArticle');
+        });
+      });
+      const deleteArticleForm = document.getElementById('deleteArticleForm');
+      const articleIdInput = document.getElementById('articleIdInput');
+      const trashIcons = document.querySelectorAll('.trash-icon');
+      trashIcons.forEach((icon) => {
+        let id = icon.id.slice(5);
+        icon.addEventListener('click', () => {
+          articleIdInput.value = id;
+          deleteArticleForm.submit();
+        });
+      });
+    </script>
+  </body>
+</html>

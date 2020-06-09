@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Articlez - Sign Up</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+      integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./assets/main.css" />
+    <link rel="stylesheet" href="./assets/signup.css" />
+  </head>
+
+  <body>
+    <div id="background">
+      <img src="/images/signupBackground.svg" alt="Background" />
+    </div>
+    <header class="dark-light-background">
+      <div id="logo">
+        <h1
+          style="
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          "
+        >
+          <a class="light" href="/">Articlez</a>
+        </h1>
+      </div>
+    </header>
+    <% if (!data.info) { %>
+    <form
+      id="signupForm"
+      action="/signup"
+      method="POST"
+      class="dark-light-background"
+    >
+      <div class="row">
+        <h1 class="orange">Sign Up!</h1>
+      </div>
+      <div class="name row">
+        <label class="light" for="firstname">Firstname</label>
+        <input
+          id="firstname"
+          name="firstname"
+          class="light-background dark"
+          type="text"
+          required
+        /><label id="lastnameLabel" class="light" for="lastname">Lastname</label
+        ><input
+          id="lastname"
+          name="lastname"
+          class="light-background dark"
+          type="text"
+          required
+        />
+      </div>
+      <div class="username row">
+        <label class="light" for="username">Username</label>
+        <p id="usernameError" class="error-message">Username Taken</p>
+        <input
+          name="username"
+          class="light-background dark"
+          id="username"
+          type="text"
+          required
+        />
+      </div>
+      <div class="email row">
+        <label class="light" for="email">Email</label>
+        <p id="emailError" class="error-message">Email already in use!</p>
+        <input
+          name="email"
+          class="light-background dark"
+          id="email"
+          type="email"
+          required
+        />
+      </div>
+      <div class="password row">
+        <label class="light" for="password">Password</label
+        ><input
+          name="password"
+          class="light-background dark"
+          id="password"
+          type="password"
+          required
+        />
+      </div>
+      <div class="row">
+        <button type="submit" id="submit" class="orange-background dark">
+          Submit
+        </button>
+      </div>
+      <div class="row">
+        <a id="loginLink" class="light" href="/login"
+          >Already have an account? Log in</a
+        >
+      </div>
+    </form>
+    <% } else if (data.info) {%>
+    <form
+      id="signupForm"
+      action="/signup"
+      method="POST"
+      class="dark-light-background"
+    >
+      <div class="row">
+        <h1 class="orange">Sign Up!</h1>
+      </div>
+      <div class="name row">
+        <label class="light" for="firstname">Firstname</label>
+        <input
+          id="firstname"
+          name="firstname"
+          class="light-background dark"
+          type="text"
+          required
+          value="<%= data.info.f %>"
+        /><label id="lastnameLabel" class="light" for="lastname">Lastname</label
+        ><input
+          id="lastname"
+          name="lastname"
+          class="light-background dark"
+          type="text"
+          required
+          value="<%= data.info.l %>"
+        />
+      </div>
+      <div class="username row">
+        <label class="light" for="username">Username</label>
+        <p id="usernameError" class="error-message">Username Taken</p>
+        <input
+          name="username"
+          class="light-background dark"
+          id="username"
+          type="text"
+          required
+          value="<%= data.info.u %>"
+        />
+      </div>
+      <div class="email row">
+        <label class="light" for="email">Email</label>
+        <p id="emailError" class="error-message">Email already in use!</p>
+        <input
+          name="email"
+          class="light-background dark"
+          id="email"
+          type="email"
+          required
+          value="<%= data.info.e %>"
+        />
+      </div>
+      <div class="password row">
+        <label class="light" for="password">Password</label
+        ><input
+          name="password"
+          class="light-background dark"
+          id="password"
+          type="password"
+          required
+        />
+      </div>
+      <div class="row">
+        <button type="submit" id="submit" class="orange-background dark">
+          Submit
+        </button>
+      </div>
+      <div class="row">
+        <a id="loginLink" class="light" href="/login"
+          >Already have an account? Log in</a
+        >
+      </div>
+    </form>
+    <% } %>
+    <script>
+      const inputs = document.querySelectorAll('.row input');
+      const username = document.getElementById('username');
+      const email = document.getElementById('email');
+      const password = document.getElementById('password');
+      const usernameError = document.getElementById('usernameError');
+      const emailError = document.getElementById('emailError');
+      inputs.forEach((input) => {
+        input.addEventListener('click', () => {
+          input.style.boxShadow = '0 0 0 0 red';
+        });
+      });
+      username.addEventListener('click', () => {
+        usernameError.style.color = 'transparent';
+      });
+      email.addEventListener('click', () => {
+        emailError.style.color = 'transparent';
+      });
+    </script>
+    <% if (data.error === 'usernameemail') { %>
+    <script>
+      username.style.boxShadow = '0 0 0 2px red';
+      email.style.boxShadow = '0 0 0 2px red';
+      usernameError.style.visibility = 'visible';
+      emailError.style.visibility = 'visible';
+    </script>
+    <% } else if (data.error === 'username') {%>
+    <script>
+      username.style.boxShadow = '0 0 0 2px red';
+      usernameError.style.visibility = 'visible';
+    </script>
+    <% } else if (data.error === 'email') {%>
+    <script>
+      email.style.boxShadow = '0 0 0 2px red';
+      emailError.style.visibility = 'visible';
+    </script>
+    <% } %>
+  </body>
+</html>

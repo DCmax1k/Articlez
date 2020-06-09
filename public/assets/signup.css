@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap'); /* font-family: 'Sriracha', cursive; */
+
+#signupForm {
+  position: absolute;
+  left: 50%;
+  top: 100px;
+  transform: translateX(-50%);
+  height: 480px;
+  width: 670px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.95;
+}
+
+.row {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.row h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  transform: translateY(10px);
+}
+
+.row .error-message {
+  visibility: hidden;
+  color: red;
+  font-size: 11px;
+  position: absolute;
+  top: -18px;
+  left: 90px;
+  transition: color 0.3s ease;
+}
+
+.row input {
+  border: 2px solid #d9dad7;
+  border-radius: 3px;
+  outline: none;
+  padding: 5px;
+  height: 28px;
+  transition: border 0.3s ease, box-shadow 0.5s ease;
+}
+.row input:focus {
+  border: 2px solid #c24d2c;
+}
+.row button {
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  padding: 5px;
+  width: 100%;
+  font-size: 20px;
+}
+
+#firstname {
+  transform: translateX(-20px);
+}
+#lastnameLabel {
+  transform: translateX(20px);
+}
+
+#username,
+#email,
+#password {
+  width: 85%;
+}
+
+#loginLink {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+}

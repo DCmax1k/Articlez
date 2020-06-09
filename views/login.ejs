@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Articlez - Login</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+      integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link rel="stylesheet" href="/assets/login.css" />
+  </head>
+  <body>
+    <div id="background">
+      <img src="/images/loginBackground.svg" alt="Background" />
+    </div>
+    <header class="dark-light-background">
+      <div id="logo">
+        <h1
+          style="
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          "
+        >
+          <a class="light" href="/">Articlez</a>
+        </h1>
+      </div>
+    </header>
+    <form
+      id="loginForm"
+      action="/login"
+      method="POST"
+      class="dark-light-background"
+    >
+      <div class="row">
+        <h1 class="orange">Login</h1>
+      </div>
+      <div class="username row">
+        <label class="light" for="username">Username</label>
+        <% if (data.info) { %>
+        <input
+          name="username"
+          class="light-background dark"
+          id="username"
+          type="text"
+          required
+          value="<%= data.info.u %>"
+        />
+        <% } else {%>
+        <input
+          name="username"
+          class="light-background dark"
+          id="username"
+          type="text"
+          required
+        />
+        <% } %>
+      </div>
+      <div class="password row">
+        <label class="light" for="password">Password</label>
+        <p class="error-message">Incorrect Password</p>
+        <input
+          name="password"
+          class="light-background dark"
+          id="password"
+          type="password"
+          required
+        />
+      </div>
+      <div class="row">
+        <button type="submit" id="submit" class="orange-background dark">
+          Submit
+        </button>
+      </div>
+      <div class="row">
+        <a id="signupLink" class="light" href="/signup"
+          >Don't have an account? Sign up!</a
+        >
+      </div>
+    </form>
+    <script>
+      const inputs = document.querySelectorAll('.row input');
+      const username = document.getElementById('username');
+      const password = document.getElementById('password');
+      const passwordError = document.querySelector('.password .error-message');
+      inputs.forEach((input) => {
+        input.addEventListener('click', () => {
+          input.style.boxShadow = '0 0 0 0 red';
+        });
+      });
+    </script>
+    <% if (data.error === 'password') { %>
+    <script>
+      password.style.boxShadow = '0 0 0 2px red';
+      passwordError.style.visibility = 'visible';
+    </script>
+    <% } %>
+  </body>
+</html>

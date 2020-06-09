@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap'); /* font-family: 'Sriracha', cursive; */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Sriracha', cursive;
+  width: 100%;
+}
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  z-index: -999;
+}
+#background img {
+  width: 100%;
+}
+.hidden {
+  visibility: hidden;
+}
+.display-none {
+  display: none;
+}
+.dark {
+  color: #1a2639;
+}
+.dark-light {
+  color: #3e4a61;
+}
+.orange {
+  color: #c24d2c;
+}
+.light {
+  color: #d9dad7;
+}
+.dark-background {
+  background-color: #1a2639;
+}
+.dark-light-background {
+  background-color: #3e4a61;
+}
+.orange-background {
+  background-color: #c24d2c;
+}
+.light-background {
+  background-color: #d9dad7;
+}
+header {
+  height: 80px;
+  position: relative;
+  border-bottom: 3px solid #c24d2c;
+}
+#logo h1 a {
+  font-size: 50px;
+  margin-left: 20px;
+  text-decoration: none;
+}
+header ul {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  position: absolute;
+  right: 100px;
+  top: 0;
+}
+header ul li a {
+  font-size: 25px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow 0.3s ease-in-out;
+  padding: 5px;
+}
+header ul li a:hover {
+  box-shadow: 0 2px 0px #c24d2c, 0 -2px 0px #c24d2c;
+}
