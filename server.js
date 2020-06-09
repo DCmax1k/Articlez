@@ -46,16 +46,5 @@ mongoose.connect(
   }
 );
 
-// TESTING
-///////////////////////////////////////////////
-app.post('/deleteall', async (req, res) => {
-  try {
-    const deleteAll = await Article.deleteMany();
-  } catch (err) {
-    console.error(err);
-  }
-});
-///////////////////////////////////////////////
-
 // Port
 app.listen(process.env.PORT || 3000);
