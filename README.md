@@ -1,4 +1,4 @@
-[PROJECT LINK](https://note-keeper-api.herokuapp.com/)
+[Project Link](https://articlez-project.herokuapp.com/)
 
 ## About the Project!
 
