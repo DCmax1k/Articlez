@@ -65,9 +65,82 @@
   width: 85%;
 }
 
-#signupLink {
+#loginLink {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  #loginForm {
+    width: 95%;
+  }
+  #loginForm label {
+    position: absolute;
+    left: 0;
+    top: -25px;
+  }
+  #firstname {
+    transform: translateX(0);
+  }
+  #lastname {
+    position: absolute;
+    left: 50%;
+  }
+  #lastnameLabel {
+    transform: translateX(0);
+    position: absolute;
+    left: 50% !important;
+  }
+  .row {
+    margin-bottom: 70px;
+  }
+
+  .row .error-message {
+    top: unset;
+    bottom: -19px;
+    left: 1px;
+  }
+
+  .row input {
+    border: 2px solid #d9dad7;
+    border-radius: 3px;
+    outline: none;
+    padding: 5px;
+    height: 28px;
+    transition: border 0.3s ease, box-shadow 0.5s ease;
+  }
+  .row input:focus {
+    border: 2px solid #c24d2c;
+  }
+  .row button {
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    padding: 5px;
+    width: 100%;
+    font-size: 20px;
+  }
+
+  #username,
+  #email,
+  #password {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  #firstname,
+  #lastname {
+    width: 48%;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  #loginLink {
+    font-size: 13px;
+  }
 }

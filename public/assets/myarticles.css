@@ -1,4 +1,9 @@
-#title > p {
+#title {
+  height: 120px;
+  margin-top: 30px;
+}
+
+#openForm {
   position: absolute;
   right: 0;
   top: 45%;
@@ -45,10 +50,9 @@
 
 #characterLimit {
   position: absolute;
-  bottom: 13px;
+  bottom: 26px;
   right: 5px;
-  transform: translateY(-50%);
-  color: #1a2639;
+  color: #d9dad7;
   font-size: 12px;
 }
 
@@ -95,4 +99,64 @@
   color: white;
   font-size: 30px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1200px) {
+  #openForm {
+    right: -80px;
+    top: 35%;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  #openForm {
+    width: 100%;
+    right: 50%;
+    top: unset;
+    bottom: 0;
+    transform: translateX(50%);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #newArticleForm {
+    padding: 50px 20px 20px 20px;
+  }
+  #newArticleForm > div > label {
+    font-size: 25px;
+  }
+  #newArticleForm textarea {
+    height: 300px;
+    width: 100%;
+    border: 2px solid #d9dad7;
+    border-radius: 5px;
+    outline: none;
+    padding: 2px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #title {
+    height: 100px;
+    margin-top: 15px;
+  }
+  #newArticleForm > div > label {
+    font-size: 20px;
+  }
+  #characterLimitText {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 340px) {
+  #title > h2 {
+    font-size: 22px;
+  }
+  #title > h2 > span {
+    font-size: 15px;
+  }
+  #characterLimitText {
+    font-size: 12px;
+  }
 }

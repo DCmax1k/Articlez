@@ -25,10 +25,10 @@
     >
       <i id="closeForm" class="far fa-times-circle"></i>
       <div>
-        <label class="light" for="title">Title</label>
+        <label id="titleLabel" class="light" for="title">Title</label>
         <input
           type="text"
-          id="title"
+          id="titleInput"
           name="title"
           class="light-background"
           required
@@ -71,7 +71,7 @@
         </li>
         <li>
           <a
-            style="box-shadow: 0 2px 0px white, 0 -2px 0px white;"
+            style="border-top: 2px solid white; border-bottom: 2px solid white;"
             class="light"
             href="/home/myarticles/<%= data.user.username %>?k=<%= data.user._id %>"
             >My Articles</a
@@ -149,7 +149,7 @@
       const openForm = document.getElementById('openForm');
       const closeForm = document.getElementById('closeForm');
       const articleForm = document.getElementById('newArticleForm');
-      const title = document.getElementById('title');
+      const title = document.getElementById('titleInput');
       const text = document.getElementById('text');
       const characterLimit = document.getElementById('characterLimit');
       const characterLimitText = document.getElementById('characterLimitText');

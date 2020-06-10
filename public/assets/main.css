@@ -81,3 +81,11 @@ header ul li a {
 header ul li a:hover {
   box-shadow: 0 2px 0px #c24d2c, 0 -2px 0px #c24d2c;
 }
+
+@media screen and (max-width: 1200px) {
+  #background img {
+    height: 100%;
+    width: auto;
+    transform: translateX(-200px);
+  }
+}
