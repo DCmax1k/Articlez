@@ -51,8 +51,8 @@
           <h4><%= article.date.toLocaleDateString() %></h4>
         </div>
         <hr />
-        <p>
-          <%= article.text %>
+        <p class="article-text">
+          <%= JSON.stringify( article.text ) %>
         </p>
         <div class="author">
           <p>
@@ -68,13 +68,15 @@
       <!-- End of Articles -->
     </div>
     <script>
-      // Loops through all articles - All pages
+      // Loops through all articles
+      // Check length of article
       const articles = document.querySelectorAll('.article');
       articles.forEach((article, i) => {
         if (article.offsetHeight > 500) {
           article.classList.add('shortenArticle');
         }
       });
+      // Read more Btn
       const readMoreBtns = document.querySelectorAll('.read-more');
       readMoreBtns.forEach((btn) => {
         let id = btn.id.slice(btn.id.length - 1);
@@ -83,6 +85,18 @@
             .getElementById(`article${id}`)
             .classList.remove('shortenArticle');
         });
+      });
+      // Adds return values by adding <br /> tags.
+      const articleText = document.querySelectorAll('.article-text');
+      articleText.forEach((text) => {
+        let newTextArr = text.innerHTML
+          .replace(/\\r\\n/gi, '<br />')
+          .trim()
+          .split('');
+        newTextArr.pop();
+        newTextArr.shift();
+        newText = newTextArr.join('');
+        text.innerHTML = newText;
       });
     </script>
   </body>

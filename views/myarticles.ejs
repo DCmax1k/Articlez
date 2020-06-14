@@ -107,8 +107,8 @@
           <h4><%= article.date.toLocaleDateString() %></h4>
         </div>
         <hr />
-        <p>
-          <%= article.text %>
+        <p class="article-text">
+          <%= JSON.stringify( article.text ) %>
         </p>
         <div class="author">
           <p>
@@ -200,6 +200,17 @@
           articleIdInput.value = id;
           deleteArticleForm.submit();
         });
+      });
+      const articleText = document.querySelectorAll('.article-text');
+      articleText.forEach((text) => {
+        let newTextArr = text.innerHTML
+          .replace(/\\r\\n/gi, '<br />')
+          .trim()
+          .split('');
+        newTextArr.pop();
+        newTextArr.shift();
+        newText = newTextArr.join('');
+        text.innerHTML = newText;
       });
     </script>
   </body>
