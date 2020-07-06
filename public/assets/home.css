@@ -118,11 +118,15 @@ header ul li:hover {
 .side-menu .side-menu-title h1 {
   font-weight: normal;
   margin-left: 10px;
+  word-wrap: break-word;
+  margin-right: 50px;
 }
 
 #settingsMenu #settingsTitle h1 {
   font-weight: normal;
   margin-left: 10px;
+  word-wrap: break-word;
+  margin-right: 50px;
 }
 
 .side-menu hr {
@@ -166,6 +170,7 @@ header ul li:hover {
 
 .side-menu-cont-row {
   margin-bottom: 10px;
+  word-wrap: break-word;
 }
 
 .side-menu-cont-row button {
@@ -442,7 +447,45 @@ header ul li:hover {
   }
 }
 
+@media screen and (max-width: 400px) {
+  #settingsMenu {
+    width: 100%;
+  }
+  .side-menu {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  #settingsMenu #settingsTitle h1 {
+    font-size: 23px;
+  }
+  .side-menu .side-menu-title h1 {
+    font-size: 23px;
+  }
+  #exitSettingsMenu {
+    font-size: 30px;
+  }
+  .exit-side-menu {
+    font-size: 30px;
+  }
+}
+
 @media screen and (max-width: 300px) {
+  /* Settings Menu */
+  #settingsCont > ul > li {
+    font-size: 15px !important;
+    font-weight: normal;
+  }
+  #settingsMenu #settingsCont {
+    padding: 0px;
+  }
+  .side-menu .side-menu-cont {
+    padding: 0px;
+  }
+  #currentPassword {
+    margin-top: 10px;
+  }
   /* Trash icon */
   .trash-icon {
     transform: translateX(10px);
