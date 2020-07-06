@@ -9,7 +9,9 @@ router.get('/:username', async (req, res) => {
     const articles = await Article.find();
     const user = await User.findById(req.query.k);
     if (user.username === req.params.username && user.status === 'online') {
-      res.render('home', { data: { user: user, articles: articles } });
+      res.render('home', {
+        data: { user: user, articles: articles, cp: req.query.cp },
+      });
     } else {
       res.redirect('/login');
     }
@@ -28,7 +30,7 @@ router.get('/myarticles/:username', async (req, res) => {
         'author.username': user.username,
       });
       res.render('myarticles', {
-        data: { user: user, articles: usersArticles },
+        data: { user: user, articles: usersArticles, cp: req.query.cp },
       });
     }
   } catch (err) {

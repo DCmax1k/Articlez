@@ -20,6 +20,7 @@ header ul li:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 #title {
@@ -37,6 +38,188 @@ header ul li:hover {
   color: #6b6b6b;
 }
 
+/* Start Settings CSS */
+#openSettingsMenu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 25px;
+  cursor: pointer;
+  transition: text-shadow 0.3s ease,
+    transform 2s cubic-bezier(0.5, 0, 0.81, 0.98);
+}
+
+#openSettingsMenu:hover {
+  text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.5);
+  transform: rotate(360deg);
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 400px;
+  z-index: 3;
+  border-left: 2px solid #d9dad7;
+  background-color: #3e4a61;
+  color: #d9dad7;
+  padding: 10px;
+  transition: transform 0.4s cubic-bezier(0.66, 0.07, 0.35, 1.05);
+  transform: translateX(100%);
+}
+
+#settingsMenu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 400px;
+  border-left: 2px solid #d9dad7;
+  z-index: 2;
+  background-color: #3e4a61;
+  color: #d9dad7;
+  padding: 10px;
+  transition: transform 0.4s cubic-bezier(0.66, 0.07, 0.35, 1.05);
+  transform: translateX(100%);
+}
+
+.side-menu.active {
+  transform: translateX(0);
+}
+#settingsMenu.active {
+  transform: translateX(0);
+}
+.exit-side-menu {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  font-size: 40px;
+  cursor: pointer;
+}
+#exitSettingsMenu {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.side-menu .side-menu-title {
+  position: relative;
+}
+
+#settingsMenu #settingsTitle {
+  position: relative;
+}
+
+.side-menu .side-menu-title h1 {
+  font-weight: normal;
+  margin-left: 10px;
+}
+
+#settingsMenu #settingsTitle h1 {
+  font-weight: normal;
+  margin-left: 10px;
+}
+
+.side-menu hr {
+  background-color: #c24d2c;
+  height: 2px;
+  border: none;
+  border-radius: 999999px;
+}
+
+#settingsMenu hr {
+  background-color: #c24d2c;
+  height: 2px;
+  border: none;
+  border-radius: 999999px;
+}
+
+.side-menu .side-menu-cont {
+  padding: 10px;
+}
+
+#settingsMenu #settingsCont {
+  padding: 10px;
+}
+
+#settingsMenu > #settingsCont > ul {
+  list-style: none;
+}
+
+#settingsMenu > #settingsCont > ul > li {
+  margin: 0px 10px;
+  font-size: 20px;
+  font-weight: normal;
+  cursor: pointer;
+  height: 50px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.side-menu-cont-row {
+  margin-bottom: 10px;
+}
+
+.side-menu-cont-row button {
+  width: 100%;
+  background-color: #c24d2c;
+  color: #1a2639;
+  height: 30px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  outline: none;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.settings-input {
+  padding: 5px;
+  border-radius: 5px;
+  width: 100%;
+  border: 2px solid transparent;
+  outline: none;
+  transition: border 0.3s ease;
+  height: 40px;
+  margin-bottom: 5px;
+}
+
+.settings-input:focus {
+  border: 2px solid #c24d2c;
+}
+
+#settingsMenu > #settingsCont > ul > li:hover {
+  background-color: #d9dad777;
+}
+
+#settingsMenu > #settingsCont > ul > li > i {
+  transition: color 0.3s ease;
+}
+
+#settingsMenu > #settingsCont > ul > li:hover > i {
+  color: #c24d2c;
+}
+
+#deleteAccountBtn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #cc1f1f;
+  cursor: pointer;
+}
+
+/* Start Article CSS */
 .article {
   width: 70%;
   margin-bottom: 20px;

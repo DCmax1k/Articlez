@@ -17,6 +17,138 @@
     <div id="background">
       <img src="/images/index.svg" alt="Background" />
     </div>
+    <!-- Start of Settings Menu -->
+    <div id="settingsMenu">
+      <div id="settingsTitle">
+        <i id="exitSettingsMenu" class="fas fa-times"></i>
+        <h1><%= data.user.firstname %>'s Settings</h1>
+      </div>
+      <hr />
+      <div id="settingsCont">
+        <ul>
+          <li id="openChangeNameMenu">
+            <i class="fas fa-signature"></i>&nbsp;&nbsp;Change Name
+          </li>
+          <li id="openChangeEmailMenu">
+            <i class="fas fa-envelope"></i>&nbsp;&nbsp;Change Email
+          </li>
+          <li id="openChangePasswordMenu">
+            <i class="fas fa-lock"></i>&nbsp;&nbsp;Change Password
+          </li>
+        </ul>
+        <div id="deleteAccountBtn">Delete Account</div>
+      </div>
+    </div>
+    <div id="changeNameMenu" class="side-menu">
+      <div class="side-menu-title">
+        <i
+          id="closeChangeNameMenu"
+          class="exit-side-menu fas fa-arrow-right"
+        ></i>
+        <h1>Change Name</h1>
+      </div>
+      <hr />
+      <div class="side-menu-cont">
+        <div class="side-menu-cont-row">
+          <h3>
+            Current name:
+            <b><%= data.user.firstname %> <%= data.user.lastname %> </b>
+          </h3>
+        </div>
+        <form
+          class="side-menu-cont-row"
+          method="POST"
+          action="/settings/changename/<%= data.user._id %>/home"
+        >
+          <input
+            id="newFirstname"
+            type="text"
+            name="newFirstname"
+            placeholder="Change firstname"
+            required
+            class="settings-input"
+          />
+          <input
+            id="newLastname"
+            type="text"
+            name="newLastname"
+            placeholder="Change lastname"
+            required
+            class="settings-input"
+          />
+          <button type="submit">Submit!</button>
+        </form>
+      </div>
+    </div>
+    <div id="changeEmailMenu" class="side-menu">
+      <div class="side-menu-title">
+        <i
+          id="closeChangeEmailMenu"
+          class="exit-side-menu fas fa-arrow-right"
+        ></i>
+        <h1>Change Email</h1>
+      </div>
+      <hr />
+      <div class="side-menu-cont">
+        <div class="side-menu-cont-row">
+          <h3>
+            Current email:
+            <b><%= data.user.email %></b>
+          </h3>
+        </div>
+        <form
+          class="side-menu-cont-row"
+          method="POST"
+          action="/settings/changeemail/<%= data.user._id %>/home"
+        >
+          <input
+            id="newEmail"
+            type="email"
+            name="newEmail"
+            placeholder="Change email"
+            required
+            class="settings-input"
+          />
+          <button type="submit">Submit!</button>
+        </form>
+      </div>
+    </div>
+    <div id="changePasswordMenu" class="side-menu">
+      <div class="side-menu-title">
+        <i
+          id="closeChangePasswordMenu"
+          class="exit-side-menu fas fa-arrow-right"
+        ></i>
+        <h1>Change Password</h1>
+      </div>
+      <hr />
+      <div class="side-menu-cont">
+        <form
+          class="side-menu-cont-row"
+          method="POST"
+          action="/settings/changepassword/<%= data.user._id %>/home"
+        >
+          <input
+            id="currentPassword"
+            type="password"
+            name="currentPassword"
+            placeholder="Current password"
+            required
+            class="settings-input"
+          />
+          <input
+            type="password"
+            id="newPassword"
+            name="newPassword"
+            placeholder="New password"
+            required
+            class="settings-input"
+          />
+          <button type="submit">Submit!</button>
+        </form>
+      </div>
+    </div>
+    <!-- Header -->
     <header class="dark-light-background">
       <div id="logo">
         <h1 style="transform: translateY(-5%);">
@@ -50,7 +182,7 @@
       <div id="title" class="row">
         <h2>Home <span>&nbsp; - all published articles</span></h2>
       </div>
-
+      <i id="openSettingsMenu" class="fas fa-cog"></i>
       <!-- Start of articles -->
       <% if (data.articles.length === 0) { %>
       <div class="no-articles">
@@ -105,8 +237,14 @@
     >
       <input name="articleId" id="articleIdInput" type="text" />
     </form>
+    <form
+      action="/settings/deleteaccount/<%= data.user._id %>"
+      method="POST"
+      id="deleteAccountForm"
+    ></form>
     <!-- Script Section -->
     <script>
+      // Logout
       const logoutBtn = document.getElementById('logoutBtn');
       const logoutForm = document.getElementById('logoutForm');
       logoutBtn.addEventListener('click', () => {
@@ -119,6 +257,7 @@
           article.classList.add('shortenArticle');
         }
       });
+      // Read more buttons
       const readMoreBtns = document.querySelectorAll('.read-more');
       readMoreBtns.forEach((btn) => {
         let id = btn.id.slice(btn.id.length - 1);
@@ -128,6 +267,7 @@
             .classList.remove('shortenArticle');
         });
       });
+      // Delete Article
       const deleteArticleForm = document.getElementById('deleteArticleForm');
       const articleIdInput = document.getElementById('articleIdInput');
       const trashIcons = document.querySelectorAll('.trash-icon');
@@ -138,6 +278,7 @@
           deleteArticleForm.submit();
         });
       });
+      // Give articles line breaks
       const articleText = document.querySelectorAll('.article-text');
       articleText.forEach((text) => {
         let newTextArr = text.innerHTML
@@ -149,6 +290,79 @@
         newText = newTextArr.join('');
         text.innerHTML = newText;
       });
+      // Start settings Menu open/close
+      const openSettings = document.getElementById('openSettingsMenu');
+      const closeSettings = document.getElementById('exitSettingsMenu');
+      const settingsMenu = document.getElementById('settingsMenu');
+      openSettings.addEventListener('click', () => {
+        settingsMenu.classList.add('active');
+      });
+      closeSettings.addEventListener('click', () => {
+        settingsMenu.classList.remove('active');
+      });
+      // Start -change name- menu open/close
+      const changeNameMenu = document.getElementById('changeNameMenu');
+      const openChangeNameMenu = document.querySelector('#openChangeNameMenu');
+      const closeChangeNameMenu = document.getElementById(
+        'closeChangeNameMenu'
+      );
+      openChangeNameMenu.addEventListener('click', () => {
+        console.log('open');
+        changeNameMenu.classList.add('active');
+      });
+      closeChangeNameMenu.addEventListener('click', () => {
+        changeNameMenu.classList.remove('active');
+      });
+      // Start -change email- menu open/close
+      const changeEmailMenu = document.getElementById('changeEmailMenu');
+      const openChangeEmailMenu = document.querySelector(
+        '#openChangeEmailMenu'
+      );
+      const closeChangeEmailMenu = document.getElementById(
+        'closeChangeEmailMenu'
+      );
+      openChangeEmailMenu.addEventListener('click', () => {
+        changeEmailMenu.classList.add('active');
+      });
+      closeChangeEmailMenu.addEventListener('click', () => {
+        changeEmailMenu.classList.remove('active');
+      });
+      // Start -change password- menu open/close
+      const changePasswordMenu = document.getElementById('changePasswordMenu');
+      const openChangePasswordMenu = document.querySelector(
+        '#openChangePasswordMenu'
+      );
+      const closeChangePasswordMenu = document.getElementById(
+        'closeChangePasswordMenu'
+      );
+      openChangePasswordMenu.addEventListener('click', () => {
+        changePasswordMenu.classList.add('active');
+      });
+      closeChangePasswordMenu.addEventListener('click', () => {
+        changePasswordMenu.classList.remove('active');
+      });
+      // Delete Account confirmation
+      const deleteAccount = document.getElementById('deleteAccountBtn');
+      const deleteAccountForm = document.getElementById('deleteAccountForm');
+      deleteAccount.addEventListener('click', () => {
+        const confirmation = confirm(
+          'Are you sure you would like to delete your account? All information and data will be deleted! This cannot be undone!'
+        );
+        if (confirmation) {
+          deleteAccountForm.submit();
+        }
+      });
+      // Change Email
     </script>
+    <% if (data.cp === 'err') { %>
+    <script>
+      settingsMenu.classList.add('active');
+      changePasswordMenu.classList.add('active');
+      const settingsCurrentPassword = document.getElementById(
+        'currentPassword'
+      );
+      settingsCurrentPassword.style.border = '2px solid red';
+    </script>
+    <% } %>
   </body>
 </html>

@@ -37,6 +37,9 @@ app.use('/logout', logoutRoute);
 const homeRoute = require('./routes/home');
 app.use('/home', homeRoute);
 
+const settingsRoute = require('./routes/settings');
+app.use('/settings', settingsRoute);
+
 // DB connection
 mongoose.connect(
   process.env.DB_CONNECTION,
