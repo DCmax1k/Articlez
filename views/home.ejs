@@ -263,6 +263,16 @@
           article.classList.add('shortenArticle');
         }
       });
+      // Author shortener
+      const authors = document.querySelectorAll('.author p');
+      authors.forEach((author, i) => {
+        if (author.innerHTML.length - 40 > 84) {
+          let authorArr = author.innerHTML.split('&');
+          let firstPart = authorArr[0].slice(0, 60);
+          let secondPart = `&${authorArr[1]}`;
+          author.innerHTML = firstPart + '...' + secondPart;
+        }
+      });
       // Read more buttons
       const readMoreBtns = document.querySelectorAll('.read-more');
       readMoreBtns.forEach((btn) => {

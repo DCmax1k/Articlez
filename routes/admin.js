@@ -22,4 +22,65 @@ router.get('/:username', async (req, res) => {
   }
 });
 
+// Promote User
+router.post('/promote/:adminid', async (req, res) => {
+  try {
+    const admin = await User.findById(req.params.adminid);
+    if (admin.rank === 'owner' || admin.rank === 'admin') {
+      const user = await User.findById(req.query.k);
+      const updateUser = await User.findByIdAndUpdate(
+        user._id,
+        {
+          $set: { rank: 'admin' },
+        },
+        { useFindAndModify: false }
+      );
+      const saveUser = await updateUser.save();
+      res.redirect(`/admin/${admin.username}?k=${admin._id}`);
+    } else {
+      res.redirect('/login');
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+// Demote User
+router.post('/demote/:adminid', async (req, res) => {
+  try {
+    const admin = await User.findById(req.params.adminid);
+    if (admin.rank === 'owner' || admin.rank === 'admin') {
+      const user = await User.findById(req.query.k);
+      const updateUser = await User.findByIdAndUpdate(
+        user._id,
+        {
+          $set: { rank: 'user' },
+        },
+        { useFindAndModify: false }
+      );
+      const saveUser = await updateUser.save();
+      res.redirect(`/admin/${admin.username}?k=${admin._id}`);
+    } else {
+      res.redirect('/login');
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+// Delete User
+router.post('/deleteaccount/:adminid', async (req, res) => {
+  try {
+    const admin = await User.findById(req.params.adminid);
+    if (admin.rank === 'owner' || admin.rank === 'admin') {
+      const deleteUser = await User.deleteOne({ _id: req.query.k });
+      res.redirect(`/admin/${admin.username}?k=${admin._id}`);
+    } else {
+      res.redirect('/login');
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 module.exports = router;

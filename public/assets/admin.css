@@ -2,3 +2,70 @@
   font-size: 20px;
   margin: 10px;
 }
+
+#bodyCont {
+  height: 100%;
+  width: 100%;
+}
+
+#allUsersCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-box {
+  width: 90%;
+  border-radius: 7px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px 80px 0 10px;
+  margin: 20px;
+  position: relative;
+}
+
+.side-btns {
+  position: absolute;
+  height: 100%;
+  right: 10px;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.side-btns form {
+  height: 30%;
+}
+
+.side-btns .side-btn {
+  height: 100%;
+  width: 50px;
+  border: 2px solid rgba(255, 255, 255, 0);
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  transition: border 0.3s ease;
+}
+
+.side-btns .side-btn:hover {
+  border: 2px solid rgb(23, 122, 214);
+}
+
+.user-box > ul {
+  list-style: none;
+}
+
+.user-box > ul > li {
+  word-wrap: break-word;
+}
+
+.user-box > .user-box-number {
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 400px) {
+  .user-box {
+    width: 96%;
+    margin: 10px;
+  }
+}

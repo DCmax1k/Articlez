@@ -295,7 +295,16 @@
       const text = document.getElementById('text');
       const characterLimit = document.getElementById('characterLimit');
       const characterLimitText = document.getElementById('characterLimitText');
-
+      // Author shortener
+      const authors = document.querySelectorAll('.author p');
+      authors.forEach((author, i) => {
+        if (author.innerHTML.length - 40 > 84) {
+          let authorArr = author.innerHTML.split('&');
+          let firstPart = authorArr[0].slice(0, 60);
+          let secondPart = `&${authorArr[1]}`;
+          author.innerHTML = firstPart + '...' + secondPart;
+        }
+      });
       title.addEventListener('input', () => {
         if (title.value.length > 50) {
           title.value = title.value.slice(0, 50);

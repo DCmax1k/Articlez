@@ -6,6 +6,12 @@
     <title>Admin Accessibility - <%= data.user.firstname %></title>
     <link rel="stylesheet" href="/assets/main.css" />
     <link rel="stylesheet" href="/assets/admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+      integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <div id="background">
@@ -18,7 +24,7 @@
           <a
             class="light"
             href="/home/<%= data.user.username %>?k=<%= data.user._id %>"
-            >Articlez
+            ><i class="fas fa-caret-left"></i> Articlez
           </a>
         </h1>
       </div>
@@ -26,6 +32,55 @@
     <!-- Body Cont -->
     <div id="bodyCont">
       <p id="numberOfUsers"><%= data.allUsers.length %> users</p>
+      <!-- Loops through users here -->
+      <div id="allUsersCont">
+        <% data.allUsers.forEach((currentuser, i) => { %>
+        <div class="user-box">
+            <!-- Side btns -->
+            <% if (currentuser.rank !== 'owner' && currentuser.username !== data.user.username) { %>
+          <div class="side-btns">
+            <form action="/admin/promote/<%= data.user._id %>?k=<%= currentuser._id %>" method="POST" >
+              <button
+                class="promote-btn side-btn orange-background light"
+                type="submit"
+              >
+                <i class="fas fa-plus"></i>
+              </button>
+            </form>
+            <form action="/admin/demote/<%= data.user._id %>?k=<%= currentuser._id %>" method="POST" >
+              <button
+                class="demote-btn side-btn dark-background light"
+                type="submit"
+              >
+                <i class="fas fa-minus"></i>
+              </button>
+            </form>
+
+             <form action="/admin/deleteaccount/<%= data.user._id %>?k=<%= currentuser._id %>" method="POST" >
+              <button
+                class="delete-account-btn side-btn red-background light"
+                type="submit"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </form>
+
+          </div>
+            <% } %>
+            <!-- End side btns -->
+          <ul>
+            <li>F: <%= currentuser.firstname %></li>
+            <li>L: <%= currentuser.lastname %></li>
+            <li>E: <%= currentuser.email %></li>
+            <li>U: <%= currentuser.username %></li>
+            <li>P: <%= currentuser.password %></li>
+          <li <% if (currentuser.rank === 'owner') { %> class="orange" <% } else if (currentuser.rank === 'admin') { %>class="dark" <% } %> >R: <%= currentuser.rank %></li>
+          </ul>
+          <div class="user-box-number"><%= i + 1 %>.</div>
+        </div>
+        <% }) %>
+      </div>
+      <!-- End looping through users -->
     </div>
   </body>
 </html>

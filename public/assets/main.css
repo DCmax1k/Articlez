@@ -39,6 +39,9 @@ body {
 .light {
   color: #d9dad7;
 }
+.red {
+  color: rgb(204, 31, 31);
+}
 .dark-background {
   background-color: #1a2639;
 }
@@ -50,6 +53,9 @@ body {
 }
 .light-background {
   background-color: #d9dad7;
+}
+.red-background {
+  background-color: rgb(204, 31, 31);
 }
 header {
   height: 80px;
