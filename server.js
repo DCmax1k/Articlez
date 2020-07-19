@@ -40,6 +40,9 @@ app.use('/home', homeRoute);
 const settingsRoute = require('./routes/settings');
 app.use('/settings', settingsRoute);
 
+const adminRoute = require('./routes/admin');
+app.use('/admin', adminRoute);
+
 // DB connection
 mongoose.connect(
   process.env.DB_CONNECTION,

@@ -212,6 +212,20 @@ header ul li:hover {
   color: #c24d2c;
 }
 
+#adminAccessBtn {
+  font-size: 50px;
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  transition: color 0.3s ease;
+}
+
+#adminAccessBtn:hover {
+  color: #c24d2c;
+}
+
 #deleteAccountBtn {
   position: absolute;
   left: 50%;

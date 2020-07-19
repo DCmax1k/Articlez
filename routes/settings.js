@@ -29,7 +29,7 @@ router.post('/deleteaccount/:id', async (req, res) => {
 router.post('/changename/:id/:location', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    const articles = await Article.update(
+    const articles = await Article.updateMany(
       { 'author._id': user._id },
       {
         'author.firstname': req.body.newFirstname,
@@ -38,10 +38,14 @@ router.post('/changename/:id/:location', async (req, res) => {
       { userFindAndModify: false }
     );
     if (user.status === 'online') {
-      const changeName = await User.findByIdAndUpdate(user._id, {
-        firstname: req.body.newFirstname,
-        lastname: req.body.newLastname,
-      });
+      const changeName = await User.findByIdAndUpdate(
+        user._id,
+        {
+          firstname: req.body.newFirstname,
+          lastname: req.body.newLastname,
+        },
+        { useFindAndModify: false }
+      );
       const saveName = await changeName.save();
       if (req.params.location === 'home') {
         res.redirect(`/home/${user.username}?k=${user._id}`);
@@ -88,9 +92,13 @@ router.post('/changepassword/:id/:location', async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user.status === 'online') {
       if (req.body.currentPassword === user.password) {
-        const changeThePassword = await User.findByIdAndUpdate(user._id, {
-          password: req.body.newPassword,
-        });
+        const changeThePassword = await User.findByIdAndUpdate(
+          user._id,
+          {
+            password: req.body.newPassword,
+          },
+          { useFindAndModify: false }
+        );
         const savePassword = await changeThePassword.save();
         if (req.params.location === 'home') {
           res.redirect(`/home/${user.username}?k=${user._id}`);

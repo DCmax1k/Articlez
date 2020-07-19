@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Accessibility - <%= data.user.firstname %></title>
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link rel="stylesheet" href="/assets/admin.css" />
+  </head>
+  <body>
+    <div id="background">
+      <img src="/images/index.svg" alt="Background" />
+    </div>
+    <!-- Header -->
+    <header class="dark-light-background">
+      <div id="logo">
+        <h1 style="transform: translateY(-5%);">
+          <a
+            class="light"
+            href="/home/<%= data.user.username %>?k=<%= data.user._id %>"
+            >Articlez
+          </a>
+        </h1>
+      </div>
+    </header>
+    <!-- Body Cont -->
+    <div id="bodyCont">
+      <p id="numberOfUsers"><%= data.allUsers.length %> users</p>
+    </div>
+  </body>
+</html>
