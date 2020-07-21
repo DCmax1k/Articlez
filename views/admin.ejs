@@ -32,6 +32,7 @@
     <!-- Body Cont -->
     <div id="bodyCont">
       <p id="numberOfUsers"><%= data.allUsers.length %> users</p>
+      <input id="searchBar" type="search" placeholder="Search name, email, username, password, or role.">
       <!-- Loops through users here -->
       <div id="allUsersCont">
         <% data.allUsers.forEach((currentuser, i) => { %>
@@ -82,5 +83,24 @@
       </div>
       <!-- End looping through users -->
     </div>
+    <!-- Script Section -->
+    <script>
+      const userBoxes = document.querySelectorAll('.user-box');
+      const searchBar = document.getElementById('searchBar');
+      searchBar.addEventListener('keyup', (e) => {
+        const searching = e.target.value;
+        userBoxes.forEach((userBox, i) => {
+          if (!searching) {
+            userBox.style.display = 'block';
+          } else {
+            if (!userBox.innerText.toLowerCase().includes(searching.toLowerCase())) {
+              userBox.style.display = 'none';
+            } else {
+              userBox.style.display = 'block';
+            }
+          }
+        })
+      })
+    </script>
   </body>
 </html>
