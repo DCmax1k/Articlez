@@ -1,6 +1,6 @@
 #numberOfUsers {
   font-size: 20px;
-  margin: 10px;
+  margin: 20px;
 }
 
 #bodyCont {
@@ -17,7 +17,7 @@
 
 #searchBar {
   position: absolute;
-  top: 15px;
+  top: 3px;
   left: 50%;
   transform: translateX(-50%);
   height: 30px;
@@ -82,9 +82,24 @@
   margin-top: 20px;
 }
 
+@media screen and (max-width: 700px) {
+  #searchBar {
+    top: 35px;
+    width: 90%;
+    height: 30px;
+  }
+  #numberOfUsers {
+    margin: 0 0 30px 10px;
+  }
+}
+
 @media screen and (max-width: 400px) {
   .user-box {
     width: 96%;
     margin: 10px;
+  }
+  #searchBar {
+    font-size: 10px;
+    width: 96%;
   }
 }
