@@ -38,9 +38,6 @@ router.post('/', async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    if (!res.headersSent) {
-      res.redirect('/login');
-    }
   }
 });
 

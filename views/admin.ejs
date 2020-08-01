@@ -59,7 +59,7 @@
 
              <form action="/admin/deleteaccount/<%= data.user._id %>?k=<%= currentuser._id %>" method="POST" >
               <button
-                class="delete-account-btn side-btn red-background light"
+                class="delete-btn side-btn red-background light"
                 type="submit"
               >
                 <i class="fas fa-times"></i>
@@ -85,6 +85,7 @@
     </div>
     <!-- Script Section -->
     <script>
+      // Search Bar
       const userBoxes = document.querySelectorAll('.user-box');
       const searchBar = document.getElementById('searchBar');
       searchBar.addEventListener('keyup', (e) => {

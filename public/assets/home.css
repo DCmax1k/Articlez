@@ -215,7 +215,7 @@ header ul li:hover {
 #adminAccessBtn {
   font-size: 50px;
   position: absolute;
-  bottom: 100px;
+  bottom: 160px;
   left: 50%;
   transform: translateX(-50%);
   color: white;
@@ -230,12 +230,21 @@ header ul li:hover {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 20px;
+  bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #cc1f1f;
+  color: #a71a1a;
   cursor: pointer;
+  height: 50px;
+  width: 100%;
+  background-color: rgba(255, 88, 88, 0.7);
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+#deleteAccountBtn:hover {
+  background-color: rgba(255, 44, 44, 0.7);
+  color: #680000;
 }
 
 /* Start Article CSS */
@@ -352,6 +361,10 @@ header ul li:hover {
 }
 
 @media screen and (max-width: 800px) {
+  /* Settings */
+  #deleteAccountBtn {
+    height: 100px;
+  }
   /* Header */
   header {
     height: 160px;
@@ -371,6 +384,10 @@ header ul li:hover {
     top: unset;
     bottom: 25%;
     transform: translate(-50%, 50%);
+  }
+  /* Body */
+  .body-cont {
+    min-height: 100vh;
   }
   /* Title - 'HOME' */
   #title {
