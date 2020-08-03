@@ -21,7 +21,7 @@
 #newArticleForm {
   visibility: hidden;
   border: 2px solid #c24d2c;
-  border-radius: 20px;
+  border-radius: 10px;
   height: 90%;
   width: 90%;
   position: fixed;

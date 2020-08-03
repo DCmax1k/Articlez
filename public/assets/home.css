@@ -15,6 +15,63 @@ header ul li:hover {
   box-shadow: 0 2px 0px #c24d2c, 0 -2px 0px #c24d2c;
 }
 
+.info-cont {
+  position: fixed;
+  z-index: 1;
+  bottom: 20px;
+  left: 20px;
+  height: 400px;
+  width: 400px;
+  clip-path: circle(20px at 20px 380px);
+  color: white;
+  transition: clip-path 0.5s cubic-bezier(0.66, 0.2, 0.61, 0.95);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.info-cont.active {
+  clip-path: circle(75%);
+}
+
+#infoBtn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-cont p {
+  text-align: center;
+}
+
+#infoForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#infoForm textarea {
+  margin: 10px;
+  width: 90%;
+  height: 200px;
+  padding: 5px;
+  outline: none;
+}
+
+#infoForm button {
+  width: 90%;
+  height: 30px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  color: #1a2639;
+}
+
 .body-cont {
   width: 100%;
   display: flex;
@@ -476,6 +533,16 @@ header ul li:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  /* Info Content */
+  .info-cont {
+    width: 98%;
+    left: 50%;
+    transform: translateX(-50%);
+    clip-path: circle(20px at 30px 380px);
+  }
+  #infoBtn {
+    left: 10px;
   }
 }
 

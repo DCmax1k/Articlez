@@ -43,6 +43,9 @@ app.use('/settings', settingsRoute);
 const adminRoute = require('./routes/admin');
 app.use('/admin', adminRoute);
 
+const emailRoute = require('./routes/email');
+app.use('/email', emailRoute);
+
 // DB connection
 mongoose.connect(
   process.env.DB_CONNECTION,

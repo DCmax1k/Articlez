@@ -8,14 +8,9 @@ const Article = require('../models/Article');
 router.post('/deleteaccount/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    const articles = await Article.remove(
-      { 'author._id': user._id },
-      { useFindAndModify: false }
-    );
+    const articles = await Article.deleteMany({ 'author._id': user._id });
     if (user.status === 'online') {
-      const deleteUser = await User.findByIdAndRemove(user._id, {
-        userFindAndModify: false,
-      });
+      const deleteUser = await User.deleteOne({ _id: user._id });
       res.redirect('/');
     } else {
       res.redirect('/login');

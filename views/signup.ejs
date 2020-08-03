@@ -82,8 +82,11 @@
         />
       </div>
       <div class="password row">
-        <label class="light" for="password">Password</label
-        ><input
+        <label class="light" for="password">Password</label>
+        <p id="passwordError" class="error-message">
+          Password must be 5 characters long
+        </p>
+        <input
           name="password"
           class="light-background dark"
           id="password"
@@ -156,8 +159,11 @@
         />
       </div>
       <div class="password row">
-        <label class="light" for="password">Password</label
-        ><input
+        <label class="light" for="password">Password</label>
+        <p id="passwordError" class="error-message">
+          Password must be 5 characters long
+        </p>
+        <input
           name="password"
           class="light-background dark"
           id="password"
@@ -178,12 +184,21 @@
     </form>
     <% } %>
     <script>
+      const signupForm = document.getElementById('signupForm');
+      const submit = document.getElementById('submit');
       const inputs = document.querySelectorAll('.row input');
       const username = document.getElementById('username');
       const email = document.getElementById('email');
       const password = document.getElementById('password');
+      const passwordError = document.getElementById('passwordError');
       const usernameError = document.getElementById('usernameError');
       const emailError = document.getElementById('emailError');
+      submit.addEventListener('click', (e) => {
+        if (password.value.length < 5) {
+          passwordError.style.visibility = 'visible';
+          e.preventDefault();
+        }
+      });
       inputs.forEach((input) => {
         input.addEventListener('click', () => {
           input.style.boxShadow = '0 0 0 0 red';

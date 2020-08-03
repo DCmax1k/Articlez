@@ -57,10 +57,11 @@
               </button>
             </form>
 
-             <form action="/admin/deleteaccount/<%= data.user._id %>?k=<%= currentuser._id %>" method="POST" >
+             <form data-username="<%= currentuser.username %>" id="deleteForm<%= currentuser._id %>" action="/admin/deleteaccount/<%= data.user._id %>?k=<%= currentuser._id %>" method="POST" >
               <button
                 class="delete-btn side-btn red-background light"
                 type="submit"
+                id="deleteBtn<%= currentuser._id %>"
               >
                 <i class="fas fa-times"></i>
               </button>
@@ -99,6 +100,19 @@
             } else {
               userBox.style.display = 'block';
             }
+          }
+        })
+      })
+      // Delete User confirmation
+      const deleteBtns = document.querySelectorAll('.delete-btn');
+      deleteBtns.forEach(deleteBtn => {
+        deleteBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          let userid = deleteBtn.id.slice(9)
+          let deleteForm = document.getElementById(`deleteForm${userid}`);
+          let confirmation = confirm(`Are you would like to delete ${deleteForm.getAttribute('data-username')}`);
+          if (confirmation) {
+            deleteForm.submit();
           }
         })
       })

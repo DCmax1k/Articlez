@@ -217,6 +217,31 @@
         <li id="logoutBtn" class="orange">Log out</li>
       </ul>
     </header>
+    <!-- Info button at bottom left -->
+    <div class="info-cont dark-background">
+      <i id="infoBtn" class="fas fa-info"></i>
+      <div id="infoFormCont">
+        <p>
+          Have any ideas you would like to see be added to Articlez in the
+          future? Make a request!
+        </p>
+        <form
+          id="infoForm"
+          action="/email/myarticles?k=<%= data.user._id %>"
+          method="POST"
+        >
+          <textarea
+            name="messageRequest"
+            id="messageRequest"
+            cols="30"
+            rows="10"
+            placeholder="Type your request here..."
+          ></textarea>
+          <button class="orange-background" type="submit">Send!</button>
+        </form>
+      </div>
+    </div>
+    <!-- Body Content -->
     <div class="body-cont">
       <div id="title" class="row">
         <h2>My Articles <span>&nbsp; - all personal articles</span></h2>
@@ -282,6 +307,12 @@
     ></form>
     <!-- Script Section -->
     <script>
+      // Info button at bottom left
+      const infoBtn = document.getElementById('infoBtn');
+      const infoCont = document.querySelector('.info-cont');
+      infoBtn.addEventListener('click', () => {
+        infoCont.classList.toggle('active');
+      });
       // Logout - here and home
       const logoutBtn = document.getElementById('logoutBtn');
       const logoutForm = document.getElementById('logoutForm');
