@@ -29,8 +29,16 @@ header ul li:hover {
   border-radius: 10px;
 }
 
+.info-cont #infoForm {
+  pointer-events: none;
+}
+
 .info-cont.active {
   clip-path: circle(75%);
+}
+
+.info-cont.active #infoForm {
+  pointer-events: visible;
 }
 
 #infoBtn {
