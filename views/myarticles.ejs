@@ -10,6 +10,7 @@
       integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V"
       crossorigin="anonymous"
     />
+    <link rel="icon" type="image/png" href="/images/browserIcon.png" />
     <link rel="stylesheet" href="/assets/main.css" />
     <link rel="stylesheet" href="/assets/home.css" />
     <link rel="stylesheet" href="/assets/myarticles.css" />
@@ -58,13 +59,16 @@
         <div class="side-menu-cont-row">
           <h3>
             Current name:
-            <b><%= data.user.firstname %> <%= data.user.lastname %> </b>
+            <b id="namePreview"
+              ><%= data.user.firstname %> <%= data.user.lastname %>
+            </b>
           </h3>
         </div>
         <form
           class="side-menu-cont-row"
           method="POST"
-          action="/settings/changename/<%= data.user._id %>/myarticles"
+          action="/settings/changename/<%= data.user._id %>/home"
+          onsubmit="return false"
         >
           <input
             id="newFirstname"
@@ -82,7 +86,7 @@
             required
             class="settings-input"
           />
-          <button type="submit">Submit!</button>
+          <button id="submitNewName" type="submit">Submit!</button>
         </form>
       </div>
     </div>
@@ -99,13 +103,14 @@
         <div class="side-menu-cont-row">
           <h3>
             Current email:
-            <b><%= data.user.email %></b>
+            <b id="emailPreview"><%= data.user.email %></b>
           </h3>
         </div>
         <form
           class="side-menu-cont-row"
           method="POST"
-          action="/settings/changeemail/<%= data.user._id %>/myarticles"
+          action="/settings/changeemail/<%= data.user._id %>/home"
+          onsubmit="return false"
         >
           <input
             id="newEmail"
@@ -115,7 +120,7 @@
             required
             class="settings-input"
           />
-          <button type="submit">Submit!</button>
+          <button id="submitNewEmail" type="submit">Submit!</button>
         </form>
       </div>
     </div>
@@ -132,7 +137,9 @@
         <form
           class="side-menu-cont-row"
           method="POST"
-          action="/settings/changepassword/<%= data.user._id %>/myarticles"
+          action="/settings/changepassword/<%= data.user._id %>/home"
+          id="changePasswordForm"
+          onsubmit="return false"
         >
           <input
             id="currentPassword"
@@ -150,7 +157,7 @@
             required
             class="settings-input"
           />
-          <button type="submit">Submit!</button>
+          <button id="changePasswordSubmit" type="submit">Submit!</button>
         </form>
       </div>
     </div>
@@ -313,6 +320,105 @@
       const infoCont = document.querySelector('.info-cont');
       infoBtn.addEventListener('click', () => {
         infoCont.classList.toggle('active');
+      });
+      // Change Name
+      const newFirstname = document.getElementById('newFirstname');
+      const newLastname = document.getElementById('newLastname');
+      const submitNewName = document.getElementById('submitNewName');
+      const namePreview = document.getElementById('namePreview');
+      submitNewName.addEventListener('click', async (e) => {
+        if (newFirstname.value && newLastname.value) {
+          try {
+            submitNewName.innerText = 'Loading...';
+            const response = await fetch(
+              '/settings/changename/<%= data.user._id %>',
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  newFirstname: newFirstname.value,
+                  newLastname: newLastname.value,
+                }),
+              }
+            );
+            const nameResJson = await response.json();
+            newFirstname.style.border = '2px solid green';
+            newLastname.style.border = '2px solid green';
+            namePreview.innerText = `${nameResJson.updatedFirst} ${nameResJson.updatedLast}`;
+            submitNewName.innerText = 'Submit!';
+          } catch (err) {
+            console.error(err);
+          }
+        }
+      });
+      // Change Email
+      const newEmail = document.getElementById('newEmail');
+      const submitNewEmail = document.getElementById('submitNewEmail');
+      const emailPreview = document.getElementById('emailPreview');
+      submitNewEmail.addEventListener('click', async (e) => {
+        if (newEmail.value) {
+          submitNewEmail.innerText = 'Loading...';
+          try {
+            const response = await fetch(
+              '/settings/changeemail/<%= data.user._id %>',
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  newEmail: newEmail.value,
+                }),
+              }
+            );
+            const jsonRes = await response.json();
+            emailPreview.innerText = jsonRes.updatedEmail;
+            newEmail.style.border = '2px solid green';
+            submitNewEmail.innerText = 'Submit';
+          } catch (err) {
+            console.error(err);
+          }
+        }
+      });
+      // Change password
+      const changePasswordForm = document.getElementById('changePasswordForm');
+      const currentPassword = document.getElementById('currentPassword');
+      const newPassword = document.getElementById('newPassword');
+      const changePasswordSubmit = document.getElementById(
+        'changePasswordSubmit'
+      );
+      changePasswordSubmit.addEventListener('click', async (e) => {
+        if (newPassword.value.length >= 5 && currentPassword.value) {
+          try {
+            changePasswordSubmit.innerText = 'Loading...';
+            const response = await fetch(
+              '/settings/changepassword/<%= data.user._id %>',
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  currentPassword: currentPassword.value,
+                  newPassword: newPassword.value,
+                }),
+              }
+            );
+            const changePasswordJson = await response.json();
+            if (changePasswordJson.passwordChanged) {
+              newPassword.style.border = '2px solid green';
+              currentPassword.style.border = '2px solid green';
+            } else {
+              currentPassword.style.border = '2px solid red';
+              newPassword.style.border = 'none';
+            }
+            changePasswordSubmit.innerText = 'Submit!';
+          } catch (err) {
+            console.error(err);
+          }
+        }
       });
       // Logout - here and home
       const logoutBtn = document.getElementById('logoutBtn');

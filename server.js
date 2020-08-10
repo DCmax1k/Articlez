@@ -9,6 +9,7 @@ const Article = require('./models/Article');
 
 // Middlewares
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 
 // View Engine

@@ -21,7 +21,7 @@ router.post('/deleteaccount/:id', async (req, res) => {
 });
 
 // Change Name
-router.post('/changename/:id/:location', async (req, res) => {
+router.post('/changename/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const articles = await Article.updateMany(
@@ -42,11 +42,10 @@ router.post('/changename/:id/:location', async (req, res) => {
         { useFindAndModify: false }
       );
       const saveName = await changeName.save();
-      if (req.params.location === 'home') {
-        res.redirect(`/home/${user.username}?k=${user._id}`);
-      } else if (req.params.location === 'myarticles') {
-        res.redirect(`/home/myarticles/${user.username}?k=${user._id}`);
-      }
+      res.json({
+        updatedFirst: req.body.newFirstname,
+        updatedLast: req.body.newLastname,
+      });
     } else {
       res.redirect('/login');
     }
@@ -56,7 +55,7 @@ router.post('/changename/:id/:location', async (req, res) => {
 });
 
 // Change Email
-router.post('/changeemail/:id/:location', async (req, res) => {
+router.post('/changeemail/:id/', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (user.status === 'online') {
@@ -68,11 +67,9 @@ router.post('/changeemail/:id/:location', async (req, res) => {
         { useFindAndModify: false }
       );
       const saveUser = await changeEmail.save();
-      if (req.params.location === 'home') {
-        res.redirect(`/home/${user.username}?k=${user._id}`);
-      } else if (req.params.location === 'myarticles') {
-        res.redirect(`/home/myarticles/${user.username}?k=${user._id}`);
-      }
+      res.json({
+        updatedEmail: req.body.newEmail,
+      });
     } else {
       res.redirect('/login');
     }
@@ -82,7 +79,7 @@ router.post('/changeemail/:id/:location', async (req, res) => {
 });
 
 // Change password
-router.post('/changepassword/:id/:location', async (req, res) => {
+router.post('/changepassword/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (user.status === 'online') {
@@ -95,22 +92,14 @@ router.post('/changepassword/:id/:location', async (req, res) => {
           { useFindAndModify: false }
         );
         const savePassword = await changeThePassword.save();
-        if (req.params.location === 'home') {
-          res.redirect(`/home/${user.username}?k=${user._id}`);
-        } else if (req.params.location === 'myarticles') {
-          res.redirect(`/home/myarticles/${user.username}?k=${user._id}`);
-        }
+        res.json({
+          passwordChanged: true,
+        });
       } else {
-        if (req.params.location === 'home') {
-          res.redirect(`/home/${user.username}?k=${user._id}&cp=err`);
-        } else if (req.params.location === 'myarticles') {
-          res.redirect(
-            `/home/myarticles/${user.username}?k=${user._id}&cp=err`
-          );
-        }
+        res.json({
+          passwordChanged: false,
+        });
       }
-    } else {
-      res.redirect('/login');
     }
   } catch (err) {
     console.error(err);
