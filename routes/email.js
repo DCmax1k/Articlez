@@ -15,18 +15,19 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-router.post('/:from', async (req, res) => {
+router.post('/requestmessage', async (req, res) => {
   try {
     const user = await User.findById(req.query.k);
     // Developing Return Values
     let newMessageArr = JSON.stringify(req.body.messageRequest)
-      .replace(/\\r\\n/gi, '<br />')
+      .replace(/\\n/gi, '<br />')
       .trim()
       .split('');
     newMessageArr.pop();
     newMessageArr.shift();
     let newMessageRequest = newMessageArr.join('');
     // Mail Options
+    console.log(JSON.stringify(req.body.messageRequest));
     const mailOptions = {
       from: 'Articlez Request',
       to: 'dylancaldwell35@gmail.com',
@@ -40,11 +41,9 @@ router.post('/:from', async (req, res) => {
     transporter.sendMail(mailOptions, (err, data) => {
       if (err) return console.error(err);
     });
-    if (req.params.from === 'home') {
-      res.redirect(`/home/${user.username}?k=${user._id}`);
-    } else {
-      res.redirect(`/home/myarticles/${user.username}?k=${user._id}`);
-    }
+    res.json({
+      success: true,
+    });
   } catch (err) {
     console.error(err);
   }
