@@ -234,8 +234,9 @@
         </p>
         <form
           id="infoForm"
-          action="/email/myarticles?k=<%= data.user._id %>"
+          action="/email/home?k=<%= data.user._id %>"
           method="POST"
+          onsubmit="return false"
         >
           <textarea
             name="messageRequest"
@@ -320,6 +321,36 @@
       const infoCont = document.querySelector('.info-cont');
       infoBtn.addEventListener('click', () => {
         infoCont.classList.toggle('active');
+      });
+      // Info button http request
+      const sendMessageRequest = document.querySelector('#infoForm button');
+      const messageRequest = document.getElementById('messageRequest');
+      sendMessageRequest.addEventListener('click', async () => {
+        if (messageRequest.value) {
+          try {
+            sendMessageRequest.innerText = 'Loading...';
+            const response = await fetch(
+              '/email/requestmessage?k=<%= data.user._id %>',
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  messageRequest: messageRequest.value,
+                }),
+              }
+            );
+            const resJson = await response.json();
+
+            if (resJson.success) {
+              messageRequest.value = '';
+              sendMessageRequest.innerText = 'Thanks for the feedback!';
+            }
+          } catch (err) {
+            console.error(err);
+          }
+        }
       });
       // Change Name
       const newFirstname = document.getElementById('newFirstname');
