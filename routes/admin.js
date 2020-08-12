@@ -73,13 +73,17 @@ router.post('/demote/:adminid', async (req, res) => {
 router.post('/deleteaccount/:adminid', async (req, res) => {
   try {
     const admin = await User.findById(req.params.adminid);
+    const user = await User.findById(req.query.k);
     if (admin.rank === 'owner' || admin.rank === 'admin') {
-      const user = await User.findById(req.query.k);
-      const deleteArticles = await Article.deleteOne({ 'author.id': user._id });
+      const articles = await Article.deleteMany({
+        'author.username': user.username,
+      });
       const deleteUser = await User.deleteOne({ _id: req.query.k });
-      res.redirect(`/admin/${admin.username}?k=${admin._id}`);
+      res.json({ response: 'success' });
     } else {
-      res.redirect('/login');
+      res.json({
+        response: 'notAdmin',
+      });
     }
   } catch (err) {
     console.error(err);

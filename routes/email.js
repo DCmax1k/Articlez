@@ -27,7 +27,6 @@ router.post('/requestmessage', async (req, res) => {
     newMessageArr.shift();
     let newMessageRequest = newMessageArr.join('');
     // Mail Options
-    console.log(JSON.stringify(req.body.messageRequest));
     const mailOptions = {
       from: 'Articlez Request',
       to: 'dylancaldwell35@gmail.com',
